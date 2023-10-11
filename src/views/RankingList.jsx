@@ -17,7 +17,6 @@ const Div = styled.div`
   width: 100%;
   background-color: #fff;
   .nav {
-    width: 100%;
     margin-bottom: 10px;
     h1 {
       font-size: 4.2vw;
@@ -26,6 +25,7 @@ const Div = styled.div`
       text-align: center;
       padding: 4vw;
       box-sizing: border-box;
+      margin: 0px;
     }
     .Navigation {
       display: flex;

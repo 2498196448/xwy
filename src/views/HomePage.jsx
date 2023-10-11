@@ -9,18 +9,15 @@ import '../font_7bu873hb4o6/iconfont.css';
 import { Icon } from '@iconify/react';
 import { Swiper } from 'antd-mobile';
 
-// eslint-disable-next-line no-unused-vars
-import { SearchOutline, SetOutline } from 'antd-mobile-icons';
-// eslint-disable-next-line import/no-extraneous-dependencies, no-unused-vars
-import BScroll from '@better-scroll/core';
-
 // 组件
+import { Navigate } from 'react-router-dom';
 import Banner from '../components/Banner';
 
 // 数据
 import { Sort, SongList, Leaderboard, HotTopicData, Musiccalendar, Album } from './Data';
 
 const Homepage = styled.div`
+  padding-bottom: 48px;
   /* 头部 */
   .header {
     width: 100%;
@@ -166,14 +163,17 @@ const Homepage = styled.div`
             border-radius: 8px;
             position: absolute;
             z-index: 2;
+            display: block;
           }
         }
         > p {
           width: 31vw;
+          height: 40px;
           line-height: 20px;
           color: #3e4759;
           font-size: 2.78vw;
           white-space: normal;
+          overflow: hidden;
         }
       }
     }
@@ -564,26 +564,6 @@ function HomePage() {
       });
   }, []);
 
-  const items =
-    song &&
-    // eslint-disable-next-line array-callback-return, consistent-return
-    song.map((res, index) => {
-      if (index === 0) {
-        // eslint-disable-next-line no-shadow
-        return res.resources.map((res, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Swiper.Item key={index}>
-            <div className="songPic_bg">
-              <img src={res.uiElement.image.imageUrl} alt="" />
-              <div />
-            </div>
-            <p>{res.uiElement.mainTitle.title}</p>
-          </Swiper.Item>
-        ));
-      }
-    });
-  console.log(items);
-
   return (
     <Homepage>
       {/* 头部 */}
@@ -635,7 +615,25 @@ function HomePage() {
         <div className="songList_List">
           <div className="songPic">
             <Swiper direction="vertical" indicator={() => null}>
-              {items}
+              {song &&
+                // eslint-disable-next-line array-callback-return, consistent-return
+                song.map((res, index) => {
+                  if (index === 0) {
+                    // eslint-disable-next-line no-shadow
+                    return res.resources.map((res, index) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <Swiper.Item key={index}>
+                        <div className="songPic_bg" onClick={() => {
+                          Navigate(`/Playlist/${res.id}`)
+                        }} aria-hidden="true">
+                          <img src={res.uiElement.image.imageUrl} alt="" />
+                          <div />
+                        </div>
+                        <p>{res.uiElement.mainTitle.title}</p>
+                      </Swiper.Item>
+                    ));
+                  }
+                })}
             </Swiper>
           </div>
           {song &&
@@ -643,7 +641,9 @@ function HomePage() {
             song.map((res, index) => {
               if (index !== 0) {
                 return (
-                  <div className="songPic">
+                  <div className="songPic" onClick={() => {
+                    Navigate(`/Playlist/${res.id}`)
+                  }} aria-hidden="true">
                     <div className="songPic_bg">
                       <img src={res.uiElement.image.imageUrl} alt="" />
                       <div />

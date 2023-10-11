@@ -1,9 +1,14 @@
+/* eslint-disable import/no-named-as-default */
 import React from 'react';
 import { Routes, Route, Navigate, NavLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+// eslint-disable-next-line import/no-named-as-default-member
 import HomePage from './views/HomePage';
+// eslint-disable-next-line import/no-named-as-default-member
 import RankingList from './views/RankingList';
 import Search from './views/Search';
+// eslint-disable-next-line import/no-named-as-default-member
+import Playlist from './views/Playlist';
 
 export default function App() {
   const navList = [
@@ -40,6 +45,7 @@ export default function App() {
         <Route path="/HomePage" element={<HomePage />} />
         <Route path="/RankingList" element={<RankingList />} />
         <Route path="/Search" element={<Search />} />
+        <Route path="/Playlist/:id" element={<Playlist />} />
       </Routes>
       <div
         className="fixed w-[100%] h-[45px] bg-[#fff] left-0 bottom-0 flex items-center justify-around"
