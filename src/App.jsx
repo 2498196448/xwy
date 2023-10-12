@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
-import React from 'react';
-import { Routes, Route, Navigate, NavLink } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { Routes, Route, Navigate, NavLink, useLocation } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 // eslint-disable-next-line import/no-named-as-default-member
 import HomePage from './views/HomePage';
@@ -39,6 +39,10 @@ export default function App() {
       icon: <Icon icon="ph:wechat-logo" color="#9297a1" width={22} />,
     },
   ];
+  const location = useLocation();
+  const isShowNav = useMemo(() => {
+    return location.pathname !== '/Search' && location.pathname !== '/Playlist';
+  }, [location]);
   return (
     <>
       <Routes>
@@ -48,19 +52,21 @@ export default function App() {
         <Route path="/Search" element={<Search />} />
         <Route path="/Playlist/:id" element={<Playlist />} />
       </Routes>
-      <div
-        className="fixed w-[100%] h-[45px] bg-[#fff] left-0 bottom-0 flex items-center justify-around"
-        style={{ borderTop: '1px solid rgb(247,248,249)' }}
-      >
-        {navList.map((item) => (
-          <NavLink to={item.to}>
-            <div className="flex flex-col justify-around items-center">
-              <p className="m-0">{item.icon}</p>
-              <p className="text-[#9297a1] text-[12px] m-0">{item.title}</p>
-            </div>
-          </NavLink>
-        ))}
-      </div>
+      {isShowNav && (
+        <div
+          className="fixed w-[100%] h-[45px] bg-[#fff] left-0 bottom-0 flex items-center justify-around"
+          style={{ borderTop: '1px solid rgb(247,248,249)' }}
+        >
+          {navList.map((item) => (
+            <NavLink to={item.to}>
+              <div className="flex flex-col justify-around items-center">
+                <p className="m-0">{item.icon}</p>
+                <p className="text-[#9297a1] text-[12px] m-0">{item.title}</p>
+              </div>
+            </NavLink>
+          ))}
+        </div>
+      )}
     </>
   );
 }

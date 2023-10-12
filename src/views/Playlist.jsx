@@ -265,7 +265,6 @@ function Playlist() {
   useEffect(() => {
     playlistTrackAll(location.pathname.split('/')[2]).then((res) => {
       setList(res.data.songs);
-      console.log(res.data.songs);
     });
   }, []);
   return (
