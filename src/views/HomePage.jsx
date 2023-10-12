@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 /* eslint-disable prettier/prettier */
@@ -7,11 +10,12 @@ import styled from 'styled-components';
 // eslint-disable-next-line import/no-unresolved
 import '../font_7bu873hb4o6/iconfont.css';
 import { Icon } from '@iconify/react';
-import { Swiper } from 'antd-mobile';
+import { Swiper, Popup } from 'antd-mobile';
 
 // 组件
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Banner from '../components/Banner';
+import SideBar2 from '../components/Sidebar2';
 
 // 数据
 import { Sort, SongList, Leaderboard, HotTopicData, Musiccalendar, Album } from './Data';
@@ -494,6 +498,7 @@ const Homepage = styled.div`
 `;
 
 function HomePage() {
+  const Navigate = useNavigate()
   const [data, setData] = useState();
   useEffect(() => {
     Sort()
@@ -563,18 +568,33 @@ function HomePage() {
         console.log('ERROR:音乐日历数据请求失败');
       });
   }, []);
-
+  const [visible3, setVisible3] = useState(false)
   return (
     <Homepage>
       {/* 头部 */}
       <div className="header">
         <div className="search">
-          <span className="iconfont">&#xe502;</span>
+          <span className="iconfont" onClick={() => {
+            setVisible3(true)
+          }}>&#xe502;</span>
+          <Popup
+            visible={visible3}
+            onMaskClick={() => {
+              setVisible3(false)
+            }}
+            position='left'
+            bodyStyle={{ width: '91vw', background: 'rgb(241,241,241)' }}
+          >
+            <SideBar2 />
+          </Popup>
           <div>
             <Icon
               icon="iconamoon:search"
               color="rgb(129,137,161)"
               style={{ marginLeft: '9px', fontSize: '16px' }}
+              onClick={() => {
+                Navigate('/Search')
+              }}
             />
             <input type="text" placeholder="Love Is Gone" />
             <Icon
@@ -621,10 +641,9 @@ function HomePage() {
                   if (index === 0) {
                     // eslint-disable-next-line no-shadow
                     return res.resources.map((res, index) => (
-                      // eslint-disable-next-line react/no-array-index-key
                       <Swiper.Item key={index}>
                         <div className="songPic_bg" onClick={() => {
-                          Navigate(`/Playlist/${res.id}`)
+                          Navigate(`/Playlist/${res.resourceId}`)
                         }} aria-hidden="true">
                           <img src={res.uiElement.image.imageUrl} alt="" />
                           <div />
@@ -641,8 +660,8 @@ function HomePage() {
             song.map((res, index) => {
               if (index !== 0) {
                 return (
-                  <div className="songPic" onClick={() => {
-                    Navigate(`/Playlist/${res.id}`)
+                  <div key={index} className="songPic" onClick={() => {
+                    Navigate(`/Playlist/${res.creativeId}`)
                   }} aria-hidden="true">
                     <div className="songPic_bg">
                       <img src={res.uiElement.image.imageUrl} alt="" />
@@ -654,18 +673,18 @@ function HomePage() {
               }
             })}
         </div>
-      </div>
+      </div >
       {/* 新歌新碟/数字专辑 */}
-      <div className="album">
+      < div className="album" >
         {/* 标题 */}
-        <div className="album_title">
+        < div className="album_title" >
           <h1>
             新歌新碟/数字专辑<span className="iconfont">&#xe628;</span>
           </h1>
           <span className="iconfont">&#xe8c4;</span>
-        </div>
+        </div >
         {/* 内容 */}
-        <div className="album_content">
+        < div className="album_content" >
           {disc &&
             disc.map((res) => {
               return (
@@ -685,24 +704,25 @@ function HomePage() {
                   </ul>
                 </div>
               );
-            })}
-        </div>
-      </div>
+            })
+          }
+        </div >
+      </div >
       {/* 排行榜 */}
-      <div className="Leaderboard">
+      < div className="Leaderboard" >
         {/* 标题 */}
-        <div className="Leaderboard_title">
+        < div className="Leaderboard_title" >
           <h1>
             排行榜<span className="iconfont">&#xe628;</span>
           </h1>
           <span className="iconfont">&#xe8c4;</span>
-        </div>
+        </div >
         {/* 内容 */}
-        <div className="Leaderboard_content">
+        < div className="Leaderboard_content" >
           {Leader &&
-            Leader.map((res) => {
+            Leader.map((res, index) => {
               return (
-                <div className="Leaderboard_content_card">
+                <div className="Leaderboard_content_card" key={index}>
                   <div className="Leaderboard_content_card_title">
                     <h1>
                       编辑推荐榜<span className="iconfont">&#xe628;</span>
@@ -748,10 +768,10 @@ function HomePage() {
                 </div>
               );
             })}
-        </div>
-      </div>
+        </div >
+      </div >
       {/* 热门话题 */}
-      <div className="hotTopic">
+      < div className="hotTopic" >
         <div className="hotTopic_title">
           <h1>
             热门话题<span className="iconfont">&#xe628;</span>
@@ -763,6 +783,7 @@ function HomePage() {
             hot.map((res, index) => {
               return (
                 <div
+                  key={index}
                   className="hotTopic_content_card"
                   style={
                     index % 2 === 0
@@ -785,9 +806,9 @@ function HomePage() {
               );
             })}
         </div>
-      </div>
+      </div >
       {/* 音乐日历 */}
-      <div className="musicCalendar">
+      < div className="musicCalendar" >
         <div className="musicCalendar_title">
           <h1>
             音乐日历<span className="iconfont">&#xe628;</span>
@@ -796,9 +817,9 @@ function HomePage() {
         </div>
         <div className="musicCalendar_content">
           {music &&
-            music.map((res) => {
+            music.map((res, index) => {
               return (
-                <div>
+                <div key={index}>
                   <div>
                     <p>{res.onlineTime}</p>
                     <p>{res.title}</p>
@@ -808,8 +829,8 @@ function HomePage() {
               );
             })}
         </div>
-      </div>
-    </Homepage>
+      </div >
+    </Homepage >
   );
 }
 

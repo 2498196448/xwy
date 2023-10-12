@@ -10,6 +10,9 @@ export const BannerPic = () => http.get('/homepage/block/page');
 export const Sort = () => http.get('/homepage/dragon/ball');
 // 推荐歌单
 export const SongList = () => http.get('/homepage/block/page/?cookie=200');
+// 点击歌单进入详情
+export const playlistDetail = (id) => http.get(`playlist/detail?id=${id}`);
+export const playlistTrackAll = (id) => http.get('playlist/track/all', { params: { id } });
 // 新歌新碟/数字专辑
 export const Album = () => http.get('homepage/block/page?cookkie=200');
 // 新歌排行榜

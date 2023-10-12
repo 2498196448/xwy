@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
 import React from 'react';
 import { Routes, Route, Navigate, NavLink } from 'react-router-dom';

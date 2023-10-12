@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
+import { useNavigate } from 'react-router-dom';
 import { sora } from './Data';
 
 const Div = styled.div`
@@ -143,6 +144,7 @@ const Div = styled.div`
   }
 `;
 export default function Search() {
+  const Navigate = useNavigate();
   const [data, setData] = useState();
   useEffect(() => {
     sora().then((res) => {
@@ -153,7 +155,14 @@ export default function Search() {
   return (
     <Div>
       <div className="header">
-        <Icon icon="solar:arrow-up-linear" rotate={3} style={{ fontSize: '28px' }} />
+        <Icon
+          icon="solar:arrow-up-linear"
+          rotate={3}
+          style={{ fontSize: '28px' }}
+          onClick={() => {
+            Navigate('/HomePage');
+          }}
+        />
         <input type="text" placeholder="搜索音乐" />
         <Icon
           icon="iconamoon:search-light"
