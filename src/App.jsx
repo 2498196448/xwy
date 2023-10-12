@@ -10,6 +10,7 @@ import RankingList from './views/RankingList';
 import Search from './views/Search';
 // eslint-disable-next-line import/no-named-as-default-member
 import Playlist from './views/Playlist';
+import Login from './components/Login';
 
 export default function App() {
   const navList = [
@@ -41,7 +42,11 @@ export default function App() {
   ];
   const location = useLocation();
   const isShowNav = useMemo(() => {
-    return location.pathname !== '/Search' && location.pathname !== '/Playlist';
+    return (
+      location.pathname !== '/Search' &&
+      location.pathname !== '/Playlist' &&
+      location.pathname !== '/Login'
+    );
   }, [location]);
   return (
     <>
@@ -51,6 +56,7 @@ export default function App() {
         <Route path="/RankingList" element={<RankingList />} />
         <Route path="/Search" element={<Search />} />
         <Route path="/Playlist/:id" element={<Playlist />} />
+        <Route path="/Login" element={<Login />} />
       </Routes>
       {isShowNav && (
         <div

@@ -16,7 +16,7 @@ export default function SideBar2() {
               src="https://th.bing.com/th?id=OIP.6c-mOyg4bbaIv8E-sO-upgHaHm&w=246&h=253&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2"
               alt=""
               onTouchStart={() => {
-                navigate('/Mine');
+                navigate('/Login');
               }}
             />
             <span
