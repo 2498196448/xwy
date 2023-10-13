@@ -11,6 +11,7 @@ import Search from './views/Search';
 // eslint-disable-next-line import/no-named-as-default-member
 import Playlist from './views/Playlist';
 import Login from './components/Login';
+import PlaySong from './components/PlaySong';
 
 export default function App() {
   const navList = [
@@ -45,7 +46,8 @@ export default function App() {
     return (
       location.pathname !== '/Search' &&
       location.pathname !== '/Playlist' &&
-      location.pathname !== '/Login'
+      location.pathname !== '/Login' &&
+      location.pathname !== '/PlaySong'
     );
   }, [location]);
   return (
@@ -57,6 +59,7 @@ export default function App() {
         <Route path="/Search" element={<Search />} />
         <Route path="/Playlist/:id" element={<Playlist />} />
         <Route path="/Login" element={<Login />} />
+        <Route path="/PlaySong/:id" element={<PlaySong />} />
       </Routes>
       {isShowNav && (
         <div

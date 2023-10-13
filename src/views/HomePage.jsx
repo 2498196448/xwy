@@ -11,9 +11,9 @@ import styled from 'styled-components';
 import '../font_7bu873hb4o6/iconfont.css';
 import { Icon } from '@iconify/react';
 import { Swiper, Popup } from 'antd-mobile';
+import { useNavigate } from 'react-router-dom';
 
 // 组件
-import { useNavigate } from 'react-router-dom';
 import Banner from '../components/Banner';
 import SideBar2 from '../components/Sidebar2';
 

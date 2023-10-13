@@ -13,6 +13,9 @@ export const SongList = () => http.get('/homepage/block/page/?cookie=200');
 // 点击歌单进入详情
 export const playlistDetail = (id) => http.get(`playlist/detail?id=${id}`);
 export const playlistTrackAll = (id) => http.get('playlist/track/all', { params: { id } });
+// 播放歌曲--歌曲信息
+export const getSongUrl = (id) => http.get('/song/url/v1', { params: { id, level: 'standard' } }); // 歌曲播放地址
+export const getSongDetail = (id) => http.get('/song/detail', { params: { ids: id } });
 // 新歌新碟/数字专辑
 export const Album = () => http.get('homepage/block/page?cookkie=200');
 // 新歌排行榜

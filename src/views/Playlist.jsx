@@ -267,6 +267,7 @@ function Playlist() {
       setList(res.data.songs);
     });
   }, []);
+  const Navgiate = useNavigate();
   return (
     <Div>
       <div className="header">
@@ -351,7 +352,11 @@ function Playlist() {
           {list &&
             list.map((res, index) => {
               return (
-                <div>
+                <div
+                  onTouchStart={() => {
+                    Navgiate(`/PlaySong/${res.id}`);
+                  }}
+                >
                   <span>{index + 1}</span>
                   <div>
                     <p>{res.name}</p>
