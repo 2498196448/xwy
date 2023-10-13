@@ -12,6 +12,7 @@ import Search from './views/Search';
 import Playlist from './views/Playlist';
 import Login from './components/Login';
 import PlaySong from './components/PlaySong';
+import MvPlay from './components/mvPlay/MvPlay';
 
 export default function App() {
   const navList = [
@@ -60,6 +61,7 @@ export default function App() {
         <Route path="/Playlist/:id" element={<Playlist />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/PlaySong/:id" element={<PlaySong />} />
+        <Route path="/MvPlay/:id" element={<MvPlay />} />
       </Routes>
       {isShowNav && (
         <div

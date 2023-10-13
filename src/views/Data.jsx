@@ -41,6 +41,14 @@ export const Japan = () => path.get('?limit=50&area=%E6%97%A5%E6%9C%AC&cookie=')
 // 韩国
 export const Korea = () => path.get('?limit=50&area=%E9%9F%A9%E5%9B%BD&cookie=');
 
+// mv播放数据
+const mvData = axios.create({
+  baseURL: 'https://netease-cloud-music-api-five-roan-88.vercel.app/mv',
+});
+export const MvOne = (id) => mvData.get(`detail/info?mvid=${id}`);
+export const MvTwo = (id) => mvData.get(`detail?mvid=${id}`);
+export const MvThree = (id) => mvData.get(`url?id=${id}`);
+
 // 搜索
 const data = axios.create({
   baseURL: 'https://netease-cloud-music-api-five-roan-88.vercel.app',

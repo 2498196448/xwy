@@ -48,7 +48,7 @@ export default function PlaySong() {
   useEffect(() => {
     getSongDetail(location.pathname.split('/')[2]).then((res) => {
       setSongDetail(res.data.songs);
-      console.log(res.data.songs[0]);
+      // console.log(res.data.songs[0]);
       setImgUrl(res.data.songs[0]);
     });
   }, []);

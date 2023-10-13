@@ -583,7 +583,7 @@ function HomePage() {
               setVisible3(false)
             }}
             position='left'
-            bodyStyle={{ width: '91vw', background: 'rgb(241,241,241)' }}
+            bodyStyle={{ width: '84vw', background: 'rgb(241,241,241)' }}
           >
             <SideBar2 />
           </Popup>

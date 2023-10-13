@@ -1,8 +1,10 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
+import { useNavigate } from 'react-router-dom';
 import { Taiwan } from '../../views/Data';
 
 const Div = styled.div`
@@ -82,6 +84,7 @@ const Div = styled.div`
 
 // 日本
 export default function TaiwanPage() {
+  const Navigate = useNavigate();
   const [america, setamerica] = useState();
   useEffect(() => {
     Taiwan().then((res) => {
@@ -95,7 +98,13 @@ export default function TaiwanPage() {
           america.map((res, index) => {
             return (
               // eslint-disable-next-line react/no-array-index-key
-              <div key={index} className="video_list">
+              <div
+                key={index}
+                className="video_list"
+                onTouchStart={() => {
+                  Navigate(`/MvPlay/${res.id}`);
+                }}
+              >
                 <div className="img">
                   <img src={res.cover} alt="" />
                   <span>

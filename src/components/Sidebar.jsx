@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-console */
 import React from 'react';
 import { Icon } from '@iconify/react';
 import { Switch } from 'antd-mobile';
@@ -7,7 +9,7 @@ export default function sidebarNav() {
   return (
     <>
       {nav.map((item, index) => (
-        <div key={index.id} className="bg-[#fff] mt-[3vw]  rounded-[2vw]">
+        <div key={index.id} className="bg-[#fff] mt-[3vw] rounded-[4.5vw]">
           {item.title ? (
             <div className="h-[9vw] leading-[9vw] pl-[5vw] text-[2.9vw] text-[#9B8B86] border-[#ccc]">
               {item.title}
@@ -20,7 +22,7 @@ export default function sidebarNav() {
                 <span className="text-[3.3vw] ml-[3vw]">{items.name}</span>
               </div>
               <div className="mr-[3vw] flex items-center">
-                <span className="text-[12px] text-[#999] mr-[3vw]">{items?.Leeds}</span>
+                <span className="text-[12px] text-[#b5b5b5] mr-[3vw]">{items?.Leeds}</span>
                 {items.name === '深色模式' ? (
                   <Switch
                     defaultChecked={false}
@@ -34,7 +36,11 @@ export default function sidebarNav() {
                     }}
                   />
                 ) : (
-                  <Icon icon="teenyicons:right-outline" />
+                  <Icon
+                    icon="teenyicons:right-outline"
+                    color="#8a8a8a"
+                    className="w-[3vw] mr-[2vw]"
+                  />
                 )}
               </div>
             </div>
