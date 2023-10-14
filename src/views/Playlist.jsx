@@ -1,10 +1,11 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { playlistDetail, playlistTrackAll } from './Data';
+import { playlistDetail, playlistTrackAll, playOther } from './Data';
 
 const Div = styled.div`
   margin: 0;
@@ -15,14 +16,12 @@ const Div = styled.div`
   }
   .header {
     width: 100%;
-    height: 70vw;
     background-color: #7f5c74;
     padding: 0px 3.4vw 0px 3.9vw;
     box-sizing: border-box;
     .nav {
       width: 100%;
       height: 50px;
-      /* position: fixed; */
       background-color: #7f5c74;
       display: flex;
       justify-content: space-between;
@@ -244,6 +243,9 @@ const Div = styled.div`
       }
     }
   }
+  .hiddenRoll::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 function Playlist() {
@@ -267,10 +269,20 @@ function Playlist() {
       setList(res.data.songs);
     });
   }, []);
+  // 其他用户也听
+  const [listen, setListen] = useState();
+  useEffect(() => {
+    playOther(location.pathname.split('/')[2]).then((res) => {
+      setListen(res.data.playlists);
+      console.log(res.data.playlists);
+    });
+  }, []);
+  const [toggle, setToggle] = useState(false);
   return (
     <Div>
-      <div className="header">
-        <div className="nav">
+      {/* 歌单详情 */}
+      <div className="header relative">
+        <div className="nav fixed top-0 left-0 pr-[3.4vw] pl-[3.9vw] box-border z-10">
           <div className="nav_left">
             <Icon
               icon="tabler:arrow-up"
@@ -288,39 +300,112 @@ function Playlist() {
             <Icon icon="ri:more-2-fill" color="white" width="6vw" />
           </div>
         </div>
-        <div className="details">
-          <div>
-            <div />
-            <img src={data?.coverImgUrl} alt="" />
-          </div>
-          <div>
-            <h3>{data?.name}</h3>
-            <div>
-              <img src={data?.creator.avatarUrl} alt="" />
-              <span>{data?.creator.nickname}</span>
-              <div>
-                <Icon icon="iconamoon:sign-plus-fill" color="white" className="icon" />
-                <span>关注</span>
+        {/* 点击展开 */}
+        <div
+          className="absolute top-[2.3vw] right-[3.4vw] w-[6vw] h-[6vw] z-30 rounded-full flex items-center justify-center"
+          style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
+        >
+          {toggle ? (
+            <Icon
+              icon="ep:arrow-up"
+              color="white"
+              width="4vw"
+              onClick={() => {
+                setToggle(!toggle);
+              }}
+            />
+          ) : (
+            <Icon
+              icon="ep:arrow-up"
+              color="white"
+              rotate={2}
+              width="4vw"
+              onClick={() => {
+                setToggle(!toggle);
+              }}
+            />
+          )}
+        </div>
+        {toggle ? (
+          <div className="mt-[50px]">
+            <div className="">
+              <p className="w-[160px] leading-[10vw] text-[#fff] h-[10vw] opacity-[0.3]">
+                喜欢这个歌单的用户也听了
+              </p>
+              <div
+                className="hiddenRoll flex items-center pt-[1vw] box-border"
+                style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}
+              >
+                {listen &&
+                  listen.map((res, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center w-[100%] h-[166px] mr-[9.5px] pt-[4px] box-border"
+                      >
+                        <div className="relative w-[28vw] h-[28vw] ">
+                          <div className="absolute w-[25vw] h-[28vw] rounded-[9px] top-[-4px] left-[6.5px] bg-[rgba(255,255,255,.2)]" />
+                          <img
+                            src={res.coverImgUrl}
+                            alt=""
+                            className="w-[28vw] h-[28vw] rounded-[8px] absolute"
+                          />
+                        </div>
+                        <div className="w-[28vw] text-[#fff] text-[2.78vw] mt-[2vw]">
+                          <p
+                            className="h-[36px] overflow-hidden leading-[18px]"
+                            style={{ textWrap: 'wrap' }}
+                          >
+                            {res.name}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
-            <div>
-              {data &&
-                data.tags.map((res) => {
-                  return (
-                    <span>
-                      {res}
-                      <Icon icon="iconamoon:arrow-right-2-duotone" color="white" className="icon" />
-                    </span>
-                  );
-                })}
+          </div>
+        ) : (
+          <div>
+            <div className="details mt-[50px]">
+              <div className="w-[24vw] h-[24vw]">
+                <div />
+                <img src={data?.coverImgUrl} alt="" />
+              </div>
+              <div>
+                <h3>{data?.name}</h3>
+                <div>
+                  <img src={data?.creator.avatarUrl} alt="" />
+                  <span>{data?.creator.nickname}</span>
+                  <div>
+                    <Icon icon="iconamoon:sign-plus-fill" color="white" className="icon" />
+                    <span>关注</span>
+                  </div>
+                </div>
+                <div>
+                  {data &&
+                    data.tags.map((res) => {
+                      return (
+                        <span>
+                          {res}
+                          <Icon
+                            icon="iconamoon:arrow-right-2-duotone"
+                            color="white"
+                            className="icon"
+                          />
+                        </span>
+                      );
+                    })}
+                </div>
+              </div>
+            </div>
+            <div className="text">
+              <p>{data?.description}</p>
+              <Icon icon="iconamoon:arrow-right-2-duotone" color="white" className="icon" />
             </div>
           </div>
-        </div>
-        <div className="text">
-          <p>{data?.description}</p>
-          <Icon icon="iconamoon:arrow-right-2-duotone" color="white" className="icon" />
-        </div>
-        <div className="transpond">
+        )}
+        <div className="transpond pb-[7vw]">
           <div>
             <Icon icon="bxs:share" className="icon" />
             <span>{data?.shareCount}</span>
@@ -335,8 +420,9 @@ function Playlist() {
           </div>
         </div>
       </div>
-      <div className="content">
-        <div className="title">
+      {/* 歌单列表 */}
+      <div className="content absolute">
+        <div className="title" style={{ position: 'sticky', top: '50px', background: '#fff' }}>
           <div>
             <Icon icon="solar:playback-speed-bold" className="icon" />
             <p>播放全部</p>

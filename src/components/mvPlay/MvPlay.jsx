@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from '@iconify/react';
@@ -66,12 +67,24 @@ export default function MvPlay() {
           autoPlay
           className="w-[100%]"
           onClick={() => {
-            // eslint-disable-next-line no-unused-expressions
             isPlay ? playMv() : pauseMv();
             setIsPlay(!isPlay);
           }}
         />
       </div>
+      {/* 暂停按钮 */}
+      {isPlay ? (
+        <Icon
+          icon="ph:play-fill"
+          color="rgba(255,255,255,.4)"
+          width="42px"
+          className="fixed top-[226px] left-[172px]"
+          onClick={() => {
+            isPlay ? playMv() : pauseMv();
+            setIsPlay(!isPlay);
+          }}
+        />
+      ) : null}
       {/* 作者信息 */}
       <div className="details w-[270px] mt-[20vw] pl-[4vw]">
         <div className="mb-[3vw]">
@@ -180,9 +193,30 @@ export default function MvPlay() {
         </div>
       </div>
       {/* 进度条 */}
-      <div className="progressBar" />
+      <div className="progressBar w-[100%] h-[1px] bg-[rgba(255,255,255,.5)] fixed bottom-[62px] left-0" />
       {/* 评论 */}
-      <div className="review" />
+      <div
+        className="review fixed flex bottom-0 left-0 w-[100%] items-center justify-between"
+        style={{ padding: '4vw', boxSizing: 'border-box' }}
+      >
+        <input
+          type="text"
+          placeholder="发条评论结识有趣的人"
+          style={{
+            outline: 'none',
+            background: 'none',
+            border: 'none',
+            color: '#4d4d4d',
+            fontSize: '4vw',
+          }}
+        />
+        <Icon
+          icon="ci:unfold-more"
+          color="#4d4d4d"
+          width={15}
+          style={{ transform: 'rotate(-48deg)' }}
+        />
+      </div>
     </Div>
   );
 }
