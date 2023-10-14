@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 // 组件
 import Banner from '../components/Banner';
 import SideBar2 from '../components/Sidebar2';
+import Kebab from '../components/kebab';
 
 // 数据
 import { Sort, SongList, Leaderboard, HotTopicData, Musiccalendar, Album } from './Data';
@@ -514,11 +515,8 @@ function HomePage() {
   useEffect(() => {
     SongList()
       .then((res) => {
-        // eslint-disable-next-line no-shadow
         const data = res.data.data.blocks[1].creatives;
         setSong(data);
-        // eslint-disable-next-line no-undef
-        console.log(num);
       })
       .catch(() => {
         console.log('ERROR:推荐歌单数据请求失败');
@@ -569,6 +567,7 @@ function HomePage() {
       });
   }, []);
   const [visible3, setVisible3] = useState(false)
+
   return (
     <Homepage>
       {/* 头部 */}
@@ -629,7 +628,7 @@ function HomePage() {
           <h1>
             推荐歌单<span className="iconfont">&#xe628;</span>
           </h1>
-          <span className="iconfont">&#xe8c4;</span>
+          <Kebab title="推荐歌单" />
         </div>
         {/* 内容 res.resources[uiElement{image{imageUrl},mainTitle{title}}] */}
         <div className="songList_List">
@@ -681,7 +680,7 @@ function HomePage() {
           <h1>
             新歌新碟/数字专辑<span className="iconfont">&#xe628;</span>
           </h1>
-          <span className="iconfont">&#xe8c4;</span>
+          <Kebab title="新歌新碟/数字专辑" />
         </div >
         {/* 内容 */}
         < div className="album_content" >
@@ -715,7 +714,7 @@ function HomePage() {
           <h1>
             排行榜<span className="iconfont">&#xe628;</span>
           </h1>
-          <span className="iconfont">&#xe8c4;</span>
+          <Kebab title="排行榜" />
         </div >
         {/* 内容 */}
         < div className="Leaderboard_content" >
@@ -776,7 +775,7 @@ function HomePage() {
           <h1>
             热门话题<span className="iconfont">&#xe628;</span>
           </h1>
-          <span className="iconfont">&#xe8c4;</span>
+          <Kebab title="热门话题" />
         </div>
         <div className="hotTopic_content">
           {hot &&
@@ -813,7 +812,7 @@ function HomePage() {
           <h1>
             音乐日历<span className="iconfont">&#xe628;</span>
           </h1>
-          <span className="iconfont">&#xe8c4;</span>
+          <Kebab title="音乐日历" />
         </div>
         <div className="musicCalendar_content">
           {music &&

@@ -42,7 +42,7 @@ export default function MvPlay() {
   };
   const [isPlay, setIsPlay] = useState(true);
   return (
-    <div className="page w-[100%] bg-[#000] h-[100vh] overflow-hidden">
+    <Div className="page w-[100%] bg-[#000] h-[100vh] overflow-hidden">
       {/* 头部 */}
       <div className="nav flex px-[6vw] h-[12vw] box-border w-[100%] items-center justify-between my-[3vw]">
         <Icon
@@ -145,21 +145,21 @@ export default function MvPlay() {
       </div>
       {/* 侧边定位 */}
       <div className="fixed top-[76vw] right-[4.1vw] text-[3vw] text-[rgb(234,234,234)]">
-        <div className="mb-[4vw]">
+        <div className="mb-[4vw] flex flex-col justify-center items-center">
           <Icon
             icon="tabler:thumb-down-filled"
             color="white"
             rotate={2}
             width={22.5}
-            style={{ transform: 'scaleX(-1)', marginBottom: '2vw' }}
+            style={{ transform: 'scaleX(-1)', marginBottom: '2vw', marginLeft: '2px' }}
           />
           <p className="text-center">{mvOne?.likedCount}</p>
         </div>
-        <div className="mb-[4vw]">
+        <div className="mb-[4vw] flex flex-col justify-center items-center">
           <Icon icon="eva:message-circle-fill" color="white" width={22.5} className="mb-[2vw]" />
           <p className="text-center">{mvOne?.commentCount}</p>
         </div>
-        <div className="mb-[4vw]">
+        <div className="mb-[4vw] flex flex-col justify-center items-center">
           <Icon
             icon="tabler:thumb-down-filled"
             color="white"
@@ -169,7 +169,7 @@ export default function MvPlay() {
           />
           <p className="text-center">{mvOne?.shareCount}</p>
         </div>
-        <div className="mb-[4vw]">
+        <div className="mb-[4vw] flex flex-col justify-center items-center">
           <Icon
             icon="fluent:collections-24-filled"
             color="white"
@@ -183,6 +183,6 @@ export default function MvPlay() {
       <div className="progressBar" />
       {/* 评论 */}
       <div className="review" />
-    </div>
+    </Div>
   );
 }
