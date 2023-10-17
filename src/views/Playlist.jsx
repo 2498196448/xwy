@@ -1,11 +1,15 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable array-callback-return */
 /* eslint-disable no-shadow */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Icon } from '@iconify/react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Popup } from 'antd-mobile';
 import { playlistDetail, playlistTrackAll, playOther } from './Data';
+import Popups from '../components/playList/Popups';
+import SongReview from '../components/playList/Songreview';
 
 const Div = styled.div`
   margin: 0;
@@ -249,6 +253,7 @@ const Div = styled.div`
 `;
 
 function Playlist() {
+  const [visible1, setVisible1] = useState(false);
   const Navigate = useNavigate();
   const location = useLocation();
   // 歌单详情数据
@@ -274,7 +279,6 @@ function Playlist() {
   useEffect(() => {
     playOther(location.pathname.split('/')[2]).then((res) => {
       setListen(res.data.playlists);
-      console.log(res.data.playlists);
     });
   }, []);
   const [toggle, setToggle] = useState(false);
@@ -295,9 +299,9 @@ function Playlist() {
             />
             <p>歌单</p>
           </div>
-          <div className="nav_right">
+          <div className="nav_right items-center">
             <Icon icon="lucide:search" color="white" width="6vw" className="icon" />
-            <Icon icon="ri:more-2-fill" color="white" width="6vw" />
+            <Popups />
           </div>
         </div>
         {/* 点击展开 */}
@@ -376,7 +380,7 @@ function Playlist() {
                 <h3>{data?.name}</h3>
                 <div>
                   <img src={data?.creator.avatarUrl} alt="" />
-                  <span>{data?.creator.nickname}</span>
+                  <span className="overflow-hidden h-[16px]">{data?.creator.nickname}</span>
                   <div>
                     <Icon icon="iconamoon:sign-plus-fill" color="white" className="icon" />
                     <span>关注</span>
@@ -399,9 +403,19 @@ function Playlist() {
                 </div>
               </div>
             </div>
-            <div className="text">
+            <div
+              className="text items-center"
+              onClick={() => {
+                Navigate(`/SongCover/${data.id}`);
+              }}
+            >
               <p>{data?.description}</p>
-              <Icon icon="iconamoon:arrow-right-2-duotone" color="white" className="icon" />
+              <Icon
+                icon="iconamoon:arrow-right-2-duotone"
+                color="white"
+                className="icon"
+                width="5vw"
+              />
             </div>
           </div>
         )}
@@ -410,7 +424,23 @@ function Playlist() {
             <Icon icon="bxs:share" className="icon" />
             <span>{data?.shareCount}</span>
           </div>
-          <div>
+          <div
+            onClick={() => {
+              setVisible1(true);
+            }}
+          >
+            <Popup
+              visible={visible1}
+              onMaskClick={() => {
+                setVisible1(false);
+              }}
+              onClose={() => {
+                setVisible1(false);
+              }}
+              bodyStyle={{ borderTopLeftRadius: '20px', borderTopRightRadius: '20px' }}
+            >
+              <SongReview reviewData={data?.id} />
+            </Popup>
             <Icon icon="ph:chat-circle-dots-fill" className="icon" />
             <span>{data?.commentCount}</span>
           </div>
@@ -438,6 +468,7 @@ function Playlist() {
             list.map((res, index) => {
               return (
                 <div
+                  key={index}
                   onTouchStart={() => {
                     Navigate(`/PlaySong/${res.id}`);
                   }}

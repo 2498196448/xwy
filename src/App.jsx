@@ -13,6 +13,7 @@ import Login from './components/Login';
 import PlaySong from './components/PlaySong';
 import MvPlay from './components/mvPlay/MvPlay';
 import NavBottom from './components/NavBottom/NavBottom';
+import SongCover from './components/playList/SongCover';
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
       <Route path="/Login" element={<Login />} />
       <Route path="/PlaySong/:id" element={<PlaySong />} />
       <Route path="/MvPlay/:id" element={<MvPlay />} />
+      <Route path="/SongCover/:id" element={<SongCover />} />
     </Routes>
   );
 }

@@ -14,6 +14,8 @@ export const SongList = () => http.get('/homepage/block/page/?cookie=200');
 export const playlistDetail = (id) => http.get(`playlist/detail?id=${id}`);
 export const playlistTrackAll = (id) => http.get('playlist/track/all', { params: { id } });
 export const playOther = (id) => http.get('related/playlist', { params: { id } });
+// 歌单评论
+export const getCommentPlaylist = (id) => http.get('/comment/playlist', { params: { id } });
 // 播放歌曲--歌曲信息
 export const getSongUrl = (id) => http.get('/song/url/v1', { params: { id, level: 'standard' } }); // 歌曲播放地址
 export const getSongDetail = (id) => http.get('/song/detail', { params: { ids: id } });
