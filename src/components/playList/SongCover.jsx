@@ -5,6 +5,7 @@ import { playlistDetail } from '../../views/Data';
 
 export default function SongCover() {
   const location = useLocation();
+  // eslint-disable-next-line no-unused-vars
   const [data, setData] = useState();
   useEffect(() => {
     playlistDetail(location.pathname.split('/')[2]).then((res) => {
