@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
 import React from 'react';
@@ -9,14 +10,14 @@ export default function sidebarNav() {
   return (
     <>
       {nav.map((item, index) => (
-        <div key={index.id} className="bg-[#fff] mt-[3vw] rounded-[4.5vw]">
+        <div key={index} className="bg-[#fff] mt-[3vw] rounded-[4.5vw]">
           {item.title ? (
             <div className="h-[9vw] leading-[9vw] pl-[5vw] text-[2.9vw] text-[#9B8B86] border-[#ccc]">
               {item.title}
             </div>
           ) : null}
-          {item?.data.map((items) => (
-            <div key={index.id} className="flex items-center justify-between h-[12vw]">
+          {item?.data.map((items, indexs) => (
+            <div key={indexs} className="flex items-center justify-between h-[12vw]">
               <div className="flex items-center pl-[5vw]">
                 <Icon icon={items.icon} />
                 <span className="text-[3.3vw] ml-[3vw]">{items.name}</span>

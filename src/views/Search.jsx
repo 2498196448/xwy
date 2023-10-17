@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
@@ -222,7 +223,7 @@ export default function Search() {
               data.map((res, index) => {
                 if (index < 20) {
                   return (
-                    <li>
+                    <li key={index}>
                       <span style={index < 3 ? { color: 'red' } : null}>{++index}</span>
                       <p>{res.name}</p>
                     </li>
@@ -245,7 +246,7 @@ export default function Search() {
               data.map((res, index) => {
                 if (index > 19 && index < 40) {
                   return (
-                    <li>
+                    <li key={index}>
                       <span style={index < 3 ? { color: 'red' } : null}>{index}</span>
                       <p>{res.name}</p>
                     </li>

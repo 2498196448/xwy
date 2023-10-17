@@ -129,9 +129,9 @@ export default function TaiwanPage() {
                       {Math.abs(res.lastRank)}
                     </p>
                     <p>
-                      {res.artists.map((data) => {
+                      {res.artists.map((data, indexs) => {
                         return (
-                          <span>
+                          <span key={indexs}>
                             <span>{`${data.name}/`}</span>
                           </span>
                         );

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
@@ -133,7 +134,7 @@ export default function AmericaPage() {
                     <p>
                       {res.artists.map((data, index, arr) => {
                         return (
-                          <span>
+                          <span key={index}>
                             <span>{`${data.name}/`}</span>
                           </span>
                         );

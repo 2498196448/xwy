@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { Icon } from '@iconify/react';
 import { NavLink } from 'react-router-dom';
@@ -35,8 +36,9 @@ export default function NavBottom() {
       className="fixed w-[100%] h-[45px] bg-[#fff] left-0 bottom-0 flex items-center justify-around"
       style={{ borderTop: '1px solid rgb(247,248,249)' }}
     >
-      {navList.map((item) => (
+      {navList.map((item, index) => (
         <NavLink
+          key={index}
           to={item.to}
           style={({ isActive }) => {
             return { color: isActive ? '#eb4954' : '#9297a1' };

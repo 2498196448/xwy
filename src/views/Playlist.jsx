@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -388,9 +389,9 @@ function Playlist() {
                 </div>
                 <div>
                   {data &&
-                    data.tags.map((res) => {
+                    data.tags.map((res, index) => {
                       return (
-                        <span>
+                        <span key={index}>
                           {res}
                           <Icon
                             icon="iconamoon:arrow-right-2-duotone"
@@ -477,8 +478,8 @@ function Playlist() {
                   <div>
                     <p>{res.name}</p>
                     <p>
-                      {res.ar.map((res) => {
-                        return <span>{res.name}</span>;
+                      {res.ar.map((res, indexs) => {
+                        return <span key={indexs}>{res.name}</span>;
                       })}
                     </p>
                   </div>

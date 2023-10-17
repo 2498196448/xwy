@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect, useState, useRef } from 'react';
@@ -41,6 +42,7 @@ export default function PlaySong() {
       setSongUrl(res.data.data[0].url);
     });
   }, []);
+  // ReactBlur
 
   // 歌曲信息地址
   const [songDetail, setSongDetail] = useState([]);
@@ -90,8 +92,12 @@ export default function PlaySong() {
                           {res.name}
                         </p>
                         <div className="flex mt-[2vw] items-center">
-                          {res.ar.map((data) => {
-                            return <p className="text-[2.8vw] text-[#bcbfbf]">{data.name}</p>;
+                          {res.ar.map((data, indexs) => {
+                            return (
+                              <p key={indexs} className="text-[2.8vw] text-[#bcbfbf]">
+                                {data.name}
+                              </p>
+                            );
                           })}
                           <p
                             style={{ borderRadius: '8px' }}
@@ -191,7 +197,7 @@ export default function PlaySong() {
                   onClick={() => audioClick()}
                 />
               )}
-              <audio ref={audioRef} src={songUrl} loop autoPlay="true" />
+              <audio ref={audioRef} src={songUrl} loop autoPlay />
               <Icon icon="ion:play-skip-back-circle" color="white" rotate={2} height={22} />
               <Icon icon="ion:list" color="white" height={22.5} />
             </div>

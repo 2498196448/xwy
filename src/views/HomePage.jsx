@@ -685,13 +685,13 @@ function HomePage() {
         {/* 内容 */}
         < div className="album_content" >
           {disc &&
-            disc.map((res) => {
+            disc.map((res, index) => {
               return (
-                <div className="album_content_card">
+                <div key={index} className="album_content_card">
                   <ul>
-                    {res.resources.map((data) => {
+                    {res.resources.map((data, index) => {
                       return (
-                        <li>
+                        <li key={index}>
                           <img src={data.uiElement.image.imageUrl} alt="" />
                           <div>
                             <p>{data.uiElement.mainTitle.title}</p>
@@ -731,7 +731,7 @@ function HomePage() {
                   <div className="Leaderboard_content_card_content">
                     {res.resources.map((data, index) => {
                       return (
-                        <div>
+                        <div key={index}>
                           <img src={data.uiElement.image.imageUrl} alt="" />
                           <div>
                             <span

@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-shadow */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
@@ -129,9 +131,9 @@ export default function KoreaPage() {
                       {Math.abs(res.lastRank)}
                     </p>
                     <p>
-                      {res.artists.map((data) => {
+                      {res.artists.map((data, indexs) => {
                         return (
-                          <span>
+                          <span key={indexs}>
                             <span>{`${data.name}/`}</span>
                           </span>
                         );
