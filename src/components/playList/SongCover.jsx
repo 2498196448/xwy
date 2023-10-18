@@ -12,7 +12,6 @@ export default function SongCover() {
   useEffect(() => {
     playlistDetail(location.pathname.split('/')[2]).then((res) => {
       setData(res.data.playlist);
-      console.log(res.data.playlist);
     });
   }, []);
   return (

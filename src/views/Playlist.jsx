@@ -373,7 +373,12 @@ function Playlist() {
         ) : (
           <div>
             <div className="details mt-[50px]">
-              <div className="w-[24vw] h-[24vw]">
+              <div
+                className="w-[24vw] h-[24vw]"
+                onClick={() => {
+                  Navigate(`/SongCover/${data.id}`);
+                }}
+              >
                 <div />
                 <img src={data?.coverImgUrl} alt="" />
               </div>
