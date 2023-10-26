@@ -42,7 +42,6 @@ export default function PlaySong() {
       setSongUrl(res.data.data[0].url);
     });
   }, []);
-  // ReactBlur
 
   // 歌曲信息地址
   const [songDetail, setSongDetail] = useState([]);
